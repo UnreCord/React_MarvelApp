@@ -1,23 +1,46 @@
-
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import Menulateral from "../components/Menulateral.component";
+import ContenedorTbas from "../components/ContenedorTabs.components";
+import data from "../resource/data"
+import { useEffect, useState } from "react";
 
 const MoviesPage = () => {
+  
+
+  //Variables de Estado
+  const[modoVisualizacion,setModoVisualizacion]=useState(1)
+  const[listaPeliculas,setListaPeliculas]=useState([])
+
+  useEffect(()=>{ 
+    const dataFech=async()=>{
+      const resp=await fetch("https://mcuapi.herokuapp.com/api/v1/movies")
+      const data=await resp.json()
+      setListaPeliculas(data.data)
+      return data
+    }
+    dataFech()
+  },[])
+  
+  
+  //Temporal
+  //const listaPeliculas=data.data
+
+  
+
+
+
   return (
     <div className="container">
-      <h1>Marvel Cinematic Universe (MCU)</h1>
+      <h1>Marvel Cinema tic Universe (MCU)</h1>
       <div className="row">
         <div className="col-3">
-          <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a id="v-pills-tabla-tab" data-toggle="pill" href="#v-pills-tabla" role="tab" aria-controls="v-pills-tabla" aria-selected="true" className="nav-link active">
-              Tabla
-            </a>
-            <a id="v-pills-card-tab" data-toggle="pill" href="#v-pills-card" role="tab" aria-controls="v-pills-card" aria-selected="false" className="nav-link">
-              Card
-            </a>
-          </div>
+          <Menulateral modo={modoVisualizacion} cambiarModo={setModoVisualizacion}/>
+        </div>
+        <div className="col-9">
+          <ContenedorTbas modo={modoVisualizacion} peliculas={listaPeliculas}/>
         </div>
       </div>
     </div>
   )
 }
-export default MoviesPage
+export default MoviesPage;

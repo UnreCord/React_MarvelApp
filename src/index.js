@@ -5,6 +5,7 @@ import './index.css';
 //import Footer from "./components/Footer.component"
 import reportWebVitals from './reportWebVitals';
 import MoviesPage from './pages/Movies.page';
+import Menulateral from './components/Menulateral.component';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
